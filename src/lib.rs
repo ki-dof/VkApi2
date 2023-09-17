@@ -1,10 +1,8 @@
 mod error;
-use error::VkApiError;
 use reqwest::Client;
 pub mod account;
 mod param_grid;
 pub use param_grid::ParamGrid;
-use serde::{Deserialize, Deserializer};
 
 pub struct VkApi {
     service_key: String,

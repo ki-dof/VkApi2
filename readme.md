@@ -6,7 +6,7 @@
   - [ ] account.getAppPermissions
   - [x] account.getBanned
   - [ ] account.getCounters
-  - [ ] account.getInfo
+  - [x] account.getInfo
   - [ ] account.getProfileInfo
   - [ ] account.getPushSettings
   - [ ] account.lookupContacts

@@ -2,6 +2,11 @@
 name = "vkapi2"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/Teyllayka/VkApi2"
+license = "MIT"
+description = "vk api wrapper for rust"
+
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
