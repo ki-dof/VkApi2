@@ -1,3 +1,32 @@
+# VkApi2
+
+### Async Rust wrapper of [vk](https://dev.vk.com/ru/method)
+
+create api:
+
+```rust
+let api = VkApi::new(Some("service_key"), Some("group_key"), Some("flow_key"), Some("version, default is 5.131"))
+```
+
+specify params:
+
+```rust
+let vec = vec![("owner_id".to_string(), 1)];
+//or
+let mut map: HashMap<String, String> = HashMap::new();
+map.insert("owner_id".to_string(), "1".to_string());
+```
+
+call function:
+
+```rust
+let response = vkapi2::account::get_info(&api, None).await?;
+// or
+let response = vkapi2::account::unban(&api, Some(vec.into())).await?; // Some(map.into())
+```
+
+And get your results
+
 - [ ] **Account**
 
   - [x] account.ban
@@ -397,3 +426,7 @@
   - [ ] messages.getReactionsAssets
   - [ ] messages.isMessagesFromGroupAllowed
   - [ ] messages.joinChat
+
+```
+
+```
