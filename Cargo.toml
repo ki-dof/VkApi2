@@ -1,10 +1,11 @@
 [package]
 name = "vkapi2"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 repository = "https://github.com/Teyllayka/VkApi2"
 license = "MIT"
 description = "vk api wrapper for rust"
+keywords = ["vkontakte", "vk", "api", "vkontakteapi", "vkapi", "apiwrapper"]
 
 
 
