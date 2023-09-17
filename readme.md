@@ -1,10 +1,10 @@
 - [ ] **Account**
 
-  - [ ] account.ban
+  - [x] account.ban
   - [ ] account.changePassword
   - [ ] account.getActiveOffers
   - [ ] account.getAppPermissions
-  - [ ] account.getBanned
+  - [x] account.getBanned
   - [ ] account.getCounters
   - [ ] account.getInfo
   - [ ] account.getProfileInfo
@@ -14,11 +14,11 @@
   - [ ] account.saveProfileInfo
   - [ ] account.setInfo
   - [ ] account.setNameInMenu
-  - [ ] account.setOffline
-  - [ ] account.setOnline
+  - [x] account.setOffline
+  - [x] account.setOnline
   - [ ] account.setPushSettings
   - [ ] account.setSilenceMode
-  - [ ] account.unban
+  - [x] account.unban
   - [ ] account.unregisterDevice
 
 - [ ] **Ads**
