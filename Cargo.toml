@@ -5,7 +5,7 @@ edition = "2021"
 repository = "https://github.com/Teyllayka/VkApi2"
 license = "MIT"
 description = "vk api wrapper for rust"
-keywords = ["vkontakte", "vk", "api", "vkontakteapi", "vkapi", "apiwrapper"]
+keywords = ["vkontakte", "vk", "api", "vkontakteapi", "vkapi"]
 
 
 
