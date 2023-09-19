@@ -30,8 +30,18 @@ pub struct ResponseBanned {
     pub count: u32,
     pub items: Vec<u32>,
     pub profiles: Vec<Profile>,
+    pub ban_info: Vec<BanInfo>,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct BanInfo {
+    pub admin_id: u32,
+    pub comment: String,
+    pub comment_visible: bool,
+    pub date: i64,
+    pub reason: i64,
+    pub end_date: i64,
+}
 #[derive(Debug, Deserialize)]
 pub struct Profile {
     pub id: u32,
