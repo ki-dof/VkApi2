@@ -29,6 +29,12 @@ pub struct ResponseInfo {
 pub struct ResponseBanned {
     pub count: u32,
     pub items: Vec<u32>,
+    #[serde(flatten)]
+    inner: Inner,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Inner {
     pub profiles: Vec<Profile>,
     pub ban_info: Vec<BanInfo>,
 }
