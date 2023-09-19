@@ -1,6 +1,7 @@
 mod error;
 use reqwest::Client;
 pub mod account;
+pub mod groups;
 mod param_grid;
 pub use param_grid::ParamGrid;
 
