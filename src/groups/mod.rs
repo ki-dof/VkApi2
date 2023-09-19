@@ -131,7 +131,7 @@ pub async fn get_banned(
         .form(&params.data)
         .send()
         .await?;
-
+    dbg!(&response);
     let response_text = response.text().await.unwrap();
     if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
         return Err(VkApiError::VkError(error));
