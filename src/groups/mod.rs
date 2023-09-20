@@ -149,6 +149,7 @@ pub async fn get_banned(
     };
 
     params.insert_if_not_exists("v", api.v);
+    params.insert_if_not_exists("count", "1000");
 
     let response = api
         .client
