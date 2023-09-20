@@ -41,7 +41,7 @@ pub struct Inner {
 
 #[derive(Debug, Deserialize)]
 pub struct BanInfo {
-    pub admin_id: i32,
+    pub admin_id: u32,
     pub comment: String,
     pub comment_visible: bool,
     pub date: i64,
