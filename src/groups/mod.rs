@@ -28,20 +28,20 @@ pub struct ResponseInfo {
 #[derive(Debug, Deserialize)]
 pub struct ResponseBanned {
     pub count: u32,
-    pub items: Vec<u32>,
-    #[serde(flatten)]
-    inner: Inner,
+    pub items: Vec<Inner>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Inner {
-    pub profiles: Vec<Profile>,
-    pub ban_info: Vec<BanInfo>,
+    pub ban_info: BanInfo,
+    pub profile: Option<Profile>,
+    pub group: Option<Group>,
+    pub r#type: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct BanInfo {
-    pub admin_id: u32,
+    pub admin_id: i32,
     pub comment: String,
     pub comment_visible: bool,
     pub date: i64,
@@ -55,6 +55,16 @@ pub struct Profile {
     pub last_name: String,
     pub can_access_closed: bool,
     pub is_closed: bool,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Group {
+    pub id: u32,
+    pub name: String,
+    pub screen_name: String,
+    pub is_closed: u32,
+    pub r#type: String,
+    pub photo_100: String,
 }
 
 pub async fn ban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
