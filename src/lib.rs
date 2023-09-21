@@ -2,7 +2,10 @@ mod error;
 use reqwest::Client;
 pub mod account;
 pub mod groups;
+
 mod param_grid;
+pub mod users;
+
 pub use param_grid::ParamGrid;
 
 pub struct VkApi {
