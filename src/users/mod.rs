@@ -31,7 +31,6 @@ pub async fn get(api: &VkApi, params: Option<ParamGrid>) -> Result<Profile, VkAp
         .await?;
 
     let response_text = response.text().await.unwrap();
-    dbg!(&response_text);
     return if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
         Err(VkApiError::VkError(error))
     } else {
