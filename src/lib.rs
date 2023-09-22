@@ -1,4 +1,4 @@
-mod error;
+pub mod error;
 use reqwest::Client;
 pub mod account;
 pub mod groups;
