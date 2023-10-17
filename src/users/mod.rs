@@ -15,6 +15,7 @@ pub struct Response {
 #[derive(Debug, Deserialize)]
 pub struct Profile {
     pub id: i64,
+    pub deactivated: Option<String>,
     pub first_name: String,
     pub last_name: String,
     pub can_access_closed: bool,
