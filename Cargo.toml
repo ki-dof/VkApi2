@@ -12,6 +12,6 @@ keywords = ["vkontakte", "vk", "api", "vkontakteapi", "vkapi"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-reqwest = { version = "0.11.20", features = ["json"] }
+reqwest = { version = "0.12", features = ["json"] }
 serde = { version = "1.0.188", features = ["derive"]}
 serde_json = "1.0.107"

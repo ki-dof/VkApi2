@@ -6,8 +6,6 @@ use serde_json::Value;
 
 const API: &str = "https://api.vk.com/method/account.";
 
-pub struct Token(String);
-
 #[derive(Debug, Deserialize)]
 pub struct ResponseInfo {
     #[serde(alias = "2fa_required")]
@@ -42,10 +40,7 @@ pub struct Profile {
 }
 
 pub async fn ban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -65,10 +60,7 @@ pub async fn ban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiErro
 }
 
 pub async fn unban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -88,10 +80,7 @@ pub async fn unban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiEr
 }
 
 pub async fn set_offline(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -111,10 +100,7 @@ pub async fn set_offline(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, V
 }
 
 pub async fn set_online(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -134,10 +120,7 @@ pub async fn set_online(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, Vk
 }
 
 pub async fn get_info(api: &VkApi, params: Option<ParamGrid>) -> Result<ResponseInfo, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -151,19 +134,16 @@ pub async fn get_info(api: &VkApi, params: Option<ParamGrid>) -> Result<Response
 
     let response_text = response.text().await.unwrap();
     if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
-        return Err(VkApiError::VkError(error));
+        Err(VkApiError::VkError(error))
     } else {
         let json: Value = serde_json::from_str(&response_text)?;
         let data: ResponseInfo = serde_json::from_value(json["response"].clone())?;
-        return Ok(data);
+        Ok(data)
     }
 }
 
 pub async fn change_password(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -183,10 +163,7 @@ pub async fn change_password(api: &VkApi, params: Option<ParamGrid>) -> Result<(
 }
 
 pub async fn get_active_offers(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -206,10 +183,7 @@ pub async fn get_active_offers(api: &VkApi, params: Option<ParamGrid>) -> Result
 }
 
 pub async fn get_app_permissions(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -232,10 +206,7 @@ pub async fn get_banned(
     api: &VkApi,
     params: Option<ParamGrid>,
 ) -> Result<ResponseBanned, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -249,19 +220,16 @@ pub async fn get_banned(
 
     let response_text = response.text().await.unwrap();
     if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
-        return Err(VkApiError::VkError(error));
+        Err(VkApiError::VkError(error))
     } else {
         let json: Value = serde_json::from_str(&response_text)?;
         let data: ResponseBanned = serde_json::from_value(json["response"].clone())?;
-        return Ok(data);
+        Ok(data)
     }
 }
 
 pub async fn get_counters(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -281,10 +249,7 @@ pub async fn get_counters(api: &VkApi, params: Option<ParamGrid>) -> Result<(), 
 }
 
 pub async fn get_profile_info(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -304,10 +269,7 @@ pub async fn get_profile_info(api: &VkApi, params: Option<ParamGrid>) -> Result<
 }
 
 pub async fn get_push_settings(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -327,10 +289,7 @@ pub async fn get_push_settings(api: &VkApi, params: Option<ParamGrid>) -> Result
 }
 
 pub async fn lookup_contacts(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -350,10 +309,7 @@ pub async fn lookup_contacts(api: &VkApi, params: Option<ParamGrid>) -> Result<(
 }
 
 pub async fn register_device(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -373,10 +329,7 @@ pub async fn register_device(api: &VkApi, params: Option<ParamGrid>) -> Result<(
 }
 
 pub async fn save_profile_info(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -396,10 +349,7 @@ pub async fn save_profile_info(api: &VkApi, params: Option<ParamGrid>) -> Result
 }
 
 pub async fn set_info(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -419,10 +369,7 @@ pub async fn set_info(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkAp
 }
 
 pub async fn set_name_in_menu(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -442,10 +389,7 @@ pub async fn set_name_in_menu(api: &VkApi, params: Option<ParamGrid>) -> Result<
 }
 
 pub async fn set_push_settings(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -465,10 +409,7 @@ pub async fn set_push_settings(api: &VkApi, params: Option<ParamGrid>) -> Result
 }
 
 pub async fn set_silence_mode(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 
@@ -488,10 +429,7 @@ pub async fn set_silence_mode(api: &VkApi, params: Option<ParamGrid>) -> Result<
 }
 
 pub async fn unregister_device(api: &VkApi, params: Option<ParamGrid>) -> Result<(), VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 

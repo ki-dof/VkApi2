@@ -68,10 +68,7 @@ pub struct Group {
 }
 
 pub async fn ban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_else(ParamGrid::new);
 
     params.insert_if_not_exists("v", api.v);
 

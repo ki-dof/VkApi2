@@ -35,12 +35,9 @@ impl VkApi {
             Some(key) => key.to_string(),
             None => "".to_string(),
         };
-        let v = match v {
-            Some(ver) => ver,
-            None => 5.131,
-        };
+        let v = v.unwrap_or(5.131);
 
-        if group_key == flow_key && flow_key == service_key && service_key == "" {
+        if group_key == flow_key && flow_key == service_key && service_key.is_empty() {
             //Err(Error::new("Not valid email adress"))
         }
 
@@ -54,31 +51,31 @@ impl VkApi {
     }
 
     pub fn get_group_key(self) -> Option<String> {
-        if self.group_key == "" {
-            return None;
+        if self.group_key.is_empty() {
+            None
         } else {
-            return Some(self.group_key);
+            Some(self.group_key)
         }
     }
 
     pub fn get_service_key(self) -> Option<String> {
-        if self.service_key == "" {
-            return None;
+        if self.service_key.is_empty() {
+            None
         } else {
-            return Some(self.service_key);
+            Some(self.service_key)
         }
     }
 
     pub fn get_flow_key(self) -> Option<String> {
-        if self.flow_key == "" {
-            return None;
+        if self.flow_key.is_empty() {
+            None
         } else {
-            return Some(self.flow_key);
+            Some(self.flow_key)
         }
     }
 
     pub fn get_version(self) -> f32 {
-        return self.v;
+        self.v
     }
 
     pub fn set_group_key(mut self, group_key: String) {
