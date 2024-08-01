@@ -27,7 +27,7 @@ pub struct ResponseInfo {
 
 #[derive(Debug, Deserialize)]
 pub struct ResponseBanned {
-    pub count: u32,
+    pub count: i64,
     pub items: Vec<Inner>,
 }
 
@@ -41,7 +41,7 @@ pub struct Inner {
 
 #[derive(Debug, Deserialize)]
 pub struct BanInfo {
-    pub admin_id: u32,
+    pub admin_id: i64,
     pub comment: String,
     pub comment_visible: bool,
     pub date: i64,
@@ -50,7 +50,7 @@ pub struct BanInfo {
 }
 #[derive(Debug, Deserialize)]
 pub struct Profile {
-    pub id: u32,
+    pub id: i64,
     pub first_name: String,
     pub last_name: String,
     pub can_access_closed: bool,
@@ -59,10 +59,10 @@ pub struct Profile {
 
 #[derive(Debug, Deserialize)]
 pub struct Group {
-    pub id: u32,
+    pub id: i64,
     pub name: String,
     pub screen_name: String,
-    pub is_closed: u32,
+    pub is_closed: i64,
     pub r#type: String,
     pub photo_100: String,
 }
@@ -130,11 +130,11 @@ pub async fn get_banned(
         .await?;
 
     let response_text = response.text().await.unwrap();
-    if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
-        return Err(VkApiError::VkError(error));
+    return if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
+        Err(VkApiError::VkError(error))
     } else {
         let json: Value = serde_json::from_str(&response_text)?;
         let data: ResponseBanned = serde_json::from_value(json["response"].clone())?;
-        return Ok(data);
+        Ok(data)
     }
 }
