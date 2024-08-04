@@ -9,7 +9,7 @@ pub struct VkError {
 #[derive(Debug, Deserialize, Clone)]
 pub struct Error {
     #[serde(alias = "error_code")]
-    code: u32,
+    code: i32,
     #[serde(alias = "error_msg")]
     message: String,
     request_params: Vec<RequestParam>,
