@@ -15,7 +15,7 @@ pub struct Profile {
     pub is_closed: bool,
 }
 pub async fn get(api: &VkApi, params: Option<ParamGrid>) -> Result<Profile, VkApiError> {
-    let mut params = params.unwrap_or_else(|| ParamGrid::new());
+    let mut params = params.unwrap_or_default();
 
     params.insert_if_not_exists("v", api.v);
 

@@ -68,7 +68,7 @@ pub struct Group {
 }
 
 pub async fn ban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = params.unwrap_or_else(ParamGrid::new);
+    let mut params = params.unwrap_or_default();
 
     params.insert_if_not_exists("v", api.v);
 
@@ -88,10 +88,7 @@ pub async fn ban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiErro
 }
 
 pub async fn unban(api: &VkApi, params: Option<ParamGrid>) -> Result<u8, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_default();
 
     params.insert_if_not_exists("v", api.v);
 
@@ -114,10 +111,7 @@ pub async fn get_banned(
     api: &VkApi,
     params: Option<ParamGrid>,
 ) -> Result<ResponseBanned, VkApiError> {
-    let mut params = match params {
-        Some(params) => params,
-        None => ParamGrid::new(),
-    };
+    let mut params = params.unwrap_or_default();
 
     params.insert_if_not_exists("v", api.v);
 
@@ -130,7 +124,7 @@ pub async fn get_banned(
         .await?;
 
     let response_text = response.text().await.unwrap();
-    return if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
+    if let Ok(error) = serde_json::from_str::<VkError>(&response_text) {
         Err(VkApiError::VkError(error))
     } else {
         let json: Value = serde_json::from_str(&response_text)?;

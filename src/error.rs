@@ -1,13 +1,13 @@
 use serde::Deserialize;
 use std::fmt;
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Deserialize, Debug)]
 pub struct VkError {
     error: Error,
 }
 
 #[derive(Debug, Deserialize, Clone)]
-struct Error {
+pub struct Error {
     #[serde(alias = "error_code")]
     code: i32,
     #[serde(alias = "error_msg")]

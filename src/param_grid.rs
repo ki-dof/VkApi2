@@ -4,11 +4,17 @@ pub struct ParamGrid {
     pub data: HashMap<String, String>,
 }
 
+impl Default for ParamGrid {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl ParamGrid {
-    pub fn new() -> Self {
-        return Self {
+    pub fn new() -> ParamGrid {
+        Self {
             data: HashMap::new(),
-        };
+        }
     }
 }
 
