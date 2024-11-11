@@ -3,8 +3,8 @@ use reqwest::Client;
 pub mod account;
 pub mod groups;
 pub mod users;
-
 mod param_grid;
+pub mod secure;
 
 pub use param_grid::ParamGrid;
 
